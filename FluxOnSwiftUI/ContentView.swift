@@ -25,23 +25,14 @@ final class Store<State, Action>: ObservableObject {
     }
 }
 
+enum CounterAction {
+    case increment
+    case decrement
+}
+
 struct ContentView: View {
 
-    enum CounterAction {
-        case increment
-        case decrement
-    }
-
-    @ObservedObject var store = Store<Int, CounterAction>(initialState: 0) {
-        (previousState, action) in
-        switch action {
-            case .increment:
-                return previousState + 1
-            case .decrement:
-                return previousState - 1
-        }
-        
-    }
+    @EnvironmentObject var store: Store<Int, CounterAction>
 
     var body: some View {
         VStack {
